@@ -632,7 +632,7 @@ fn summary_page(ui:&Ui,record:&Record,gain:Option<Gain>,focus:&mut usize,from_ar
             let k=ease(elapsed,lower+0.25,0.3);
             text(110.0-slide,row_y+60.0,ember.name(),fade(gold,k),0.95,0.0);
             let indent=110.0+measure(ember.name(),0.95)+14.0;
-            text(indent-slide,row_y+61.0,&ember.effect().replace('\n',"，"),fade(muted,k),0.9,0.0);
+            text(indent-slide,row_y+61.0,&erdtree_tower::localization::inline(&ember.effect()),fade(muted,k),0.9,0.0);
         }
         // 誓约：菱形徽记依次放大出现
         let oath_y=row_y+108.0;let k=ease(elapsed,lower+0.15,0.3);let slide=(1.0-k)*30.0;

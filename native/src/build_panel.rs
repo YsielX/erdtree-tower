@@ -148,7 +148,7 @@ pub fn draw(ui: &Ui, run: &Run, view: &View, icon: &mut dyn FnMut(u32) -> Option
             if oaths.is_empty() {empty(ui, s, "尚未立下誓约");}
             for oath in oaths {
                 let (boon, bane) = if oath.level == 0 {(oath.kind.boon().to_owned(), oath.kind.bane())} else {(oath.kind.boon_at(oath.level), oath.kind.bane_at())};
-                entry(ui, s, Badge::Level(LEVELS[usize::from(oath.level.min(3))]), oath.kind.name(), WHITE, &[(boon.replace('\n', "，"), BOON), (format!("代价：{bane}"), RED)]);
+                entry(ui, s, Badge::Level(LEVELS[usize::from(oath.level.min(3))]), oath.kind.name(), WHITE, &[(erdtree_tower::localization::inline(&boon), BOON), (format!("代价：{bane}"), RED)]);
             }
             heading(ui, s, "余烬", Some(run.embers.len()).filter(|n| *n > 0));
             if run.embers.is_empty() {empty(ui, s, "还没有余烬：普通战与精英战的奖励里可能出现");}
@@ -165,7 +165,7 @@ pub fn draw(ui: &Ui, run: &Run, view: &View, icon: &mut dyn FnMut(u32) -> Option
                         lines.push((format!("下一层：{points}/{step} 魂点（还差 {} 点）",step-points),GOLD));
                     }
                 }
-                lines.push((ember.effect().replace('\n', "，"), BOON));
+                lines.push((erdtree_tower::localization::inline(&ember.effect()), BOON));
                 if let Some(label)=crate::reward_ui::ember_class_label(*ember) {lines.push((label, MUTED));}
                 entry(ui, s, Badge::Icon(crate::reward_ui::ember_icon(*ember).and_then(&mut *icon)), &name, crate::reward_ui::rarity_color(usize::from(ember.quality())), &lines);
             }
@@ -173,7 +173,7 @@ pub fn draw(ui: &Ui, run: &Run, view: &View, icon: &mut dyn FnMut(u32) -> Option
                 heading(ui, s, "护符赐福", Some(run.elite_buffs.len()));
                 for id in &run.elite_buffs {
                     let (name, info) = crate::reward_ui::talisman_description(*id);
-                    let lines: Vec<_> = (!info.is_empty()).then(|| (info.replace('\n', "，"), BOON)).into_iter().collect();
+                    let lines: Vec<_> = (!info.is_empty()).then(|| (erdtree_tower::localization::inline(&info), BOON)).into_iter().collect();
                     entry(ui, s, Badge::Icon(crate::reward_ui::talisman_icon(*id).and_then(&mut *icon)), &name, WHITE, &lines);
                 }
             }

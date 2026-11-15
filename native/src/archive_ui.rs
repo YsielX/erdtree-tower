@@ -343,7 +343,7 @@ fn codex(ui:&Ui,archive:&mut Archive,layout:&Layout,icon:&mut dyn FnMut(u32)->Op
             if !lit {hint(ui,300.0,"在幕间立下这条誓约后解锁");return;}
             text(p(1202.0,300.0),kind.name(),GOLD,1.2,0.0);
             text(p(1202.0,334.0),&format!("最高等级 {} · 立誓 {taken} 次",ROMAN[usize::from(best.min(3))]),MUTED,0.84,0.0);
-            let y=wrapped(ui,p(1130.0,380.0),right,&kind.boon_at(best.max(1)).replace('\n',"，"),BOON,0.92*s);
+            let y=wrapped(ui,p(1130.0,380.0),right,&erdtree_tower::localization::inline(&kind.boon_at(best.max(1))),BOON,0.92*s);
             wrapped(ui,[ox+1130.0*s,y+6.0*s],right,&format!("代价：{}",kind.bane_at()),RED,0.92*s);
         },
         Item::Ember(i)=>{
@@ -355,7 +355,7 @@ fn codex(ui:&Ui,archive:&mut Archive,layout:&Layout,icon:&mut dyn FnMut(u32)->Op
             if !lit {hint(ui,410.0,"在普通战或精英战的奖励里选择这枚余烬后解锁");return;}
             text(p(1244.0,312.0),ember.name(),GOLD,1.15,0.0);
             text(p(1244.0,348.0),&format!("获得 {taken} 次{}",crate::reward_ui::ember_class_label(ember).map_or(String::new(),|l|format!(" · {l}"))),MUTED,0.84,0.0);
-            wrapped(ui,p(1130.0,410.0),right,&ember.effect().replace('\n',"，"),BOON,0.92*s);
+            wrapped(ui,p(1130.0,410.0),right,&erdtree_tower::localization::inline(&ember.effect()),BOON,0.92*s);
         },
         Item::Boss(i)=>{
             let (act,name)=&archive.bosses[i];
