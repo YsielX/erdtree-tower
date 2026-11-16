@@ -826,7 +826,7 @@ fn center_fitted(ui:&Ui,x:f32,y:f32,text:&str,color:[f32;4],scale:f32,width:f32)
 }
 
 #[cfg(test)]
-fn write_frame(path:&std::path::Path,data:&hudhook::imgui::DrawData,width:i32,height:i32) {
+pub(crate) fn write_frame(path:&std::path::Path,data:&hudhook::imgui::DrawData,width:i32,height:i32) {
     use std::io::Write;
     let mut file=std::fs::File::create(path).unwrap();writeln!(file,"{width} {height}").unwrap();
     for list in data.draw_lists(){for cmd in list.commands(){if let hudhook::imgui::DrawCmd::Elements{count,cmd_params:p}=cmd {
