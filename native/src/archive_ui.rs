@@ -226,7 +226,7 @@ fn history(ui:&Ui,archive:&mut Archive,icon:&mut dyn FnMut(u32)->Option<TextureI
             text([min[0]+104.0*s,min[1]+44.0*s],&format!("{law}  ·  种子 {}",record.seed),MUTED,0.82,0.0);
             // 誓约名与余烬徽记
             let oaths:Vec<_>=record.oaths.iter().map(|o|format!("{} {}",o.kind.name(),ROMAN[usize::from(o.level.min(3))]).trim().to_owned()).collect();
-            let mut line=if oaths.is_empty(){"没有誓约".to_string()}else{oaths.join(" · ")};
+            let mut line=crate::i18n::t(if oaths.is_empty(){"没有誓约".to_string()}else{oaths.join(" · ")});
             ui.set_window_font_scale(0.84*s);
             while ui.calc_text_size(crate::i18n::t(&line))[0]>380.0*s&&line.chars().count()>4 {let keep=line.chars().count()-2;line=line.chars().take(keep).collect::<String>();line.push('…');line=line.replace("……","…");}
             text([min[0]+520.0*s,min[1]+12.0*s],&line,if oaths.is_empty(){DIM}else{BOON},0.84,0.0);
